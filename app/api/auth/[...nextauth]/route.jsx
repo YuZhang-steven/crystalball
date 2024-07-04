@@ -9,6 +9,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
+import bcrypt from "bcrypt";
 
 //basic auth api object, confiure
 export const authOptions = {
@@ -36,13 +37,36 @@ export const authOptions = {
        * the auhtorization logic of the dafault provider, provide the credentials object and return the user object
        */
       async authorize(credentials) {
-        //temporary hard coded user to test the pre build login page
-        const user = {
-          id: 1,
-          name: "admin",
-          email: "xx@gmail.com",
-          password: "admin",
-        };
+        //check if email and password not empty
+
+        if (!credentials.email || !credentials.password) {
+          throw new Error("Please fill all fields");
+        }
+
+        //check if teh user exist in the database
+        //if no user found or user doesn't have password(they register though google or github), throw an error
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user || !user?.hashedPassword) {
+          throw new Error("No user found");
+        }
+
+        //check if the password is correct
+        //if not, throw an error
+        const passwordMatch = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!passwordMatch) {
+          throw new Error("Password is incorrect");
+        }
+
+        //if all the check pass, return the user
         return user;
       },
     }),

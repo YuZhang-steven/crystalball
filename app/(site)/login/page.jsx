@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [data, setData] = useState({
@@ -9,6 +10,10 @@ export default function Login() {
 
   const loginUser = async (e) => {
     e.preventDefault();
+    //set redirect to false, so it ill not redirect to the next login page
+    signIn("credentials", { ...data, redirect: false }).then(() =>
+      alert("User has been logged in")
+    );
   };
 
   return (
