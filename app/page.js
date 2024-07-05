@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
-import User from "./component/user";
+import User from "./component/User";
 
 /** The function need to wait the login callback, so it ill be an async function */
 export default async function Home() {

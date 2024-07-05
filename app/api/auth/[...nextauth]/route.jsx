@@ -31,7 +31,11 @@ export const authOptions = {
       credentials: {
         email: { label: "Email", type: "text", placeholder: "xx@gmail.com" },
         password: { label: "Password", type: "password" },
-        username: { label: "Username", type: "text", placeholder: "username" },
+        username: {
+          label: "Username",
+          type: "text",
+          placeholder: "John Smith",
+        },
       },
       /**
        * the auhtorization logic of the dafault provider, provide the credentials object and return the user object

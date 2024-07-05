@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
     if (session?.status === "authenticated") {
       router.push("/dashboard");
     }
-  }, []);
+  });
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -113,18 +113,14 @@ export default function Login() {
           <h1>Click below to sign into GitHub</h1>
           <button
             className="bg-black text-white w-full"
-            onClick={() => {
-              signIn("github");
-            }}>
+            onClick={() => signIn("github")}>
             Sign In
           </button>
 
           <h1>Click below to sign into Goole</h1>
           <button
             className="bg-black text-white w-full"
-            onClick={() => {
-              signIn("google");
-            }}>
+            onClick={() => signIn("google")}>
             Sign In
           </button>
 
