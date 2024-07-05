@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "./context/AuthContext";
+import ToasterContext from "./context/ToasterContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         {/* wrap with Provide can get access the session data in client side */}
-        <Provider>{children}</Provider>
+        <Provider>
+          <ToasterContext />
+          {children}
+        </Provider>
       </body>
     </html>
   );

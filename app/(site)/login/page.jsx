@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [data, setData] = useState({
@@ -11,9 +12,15 @@ export default function Login() {
   const loginUser = async (e) => {
     e.preventDefault();
     //set redirect to false, so it ill not redirect to the next login page
-    signIn("credentials", { ...data, redirect: false }).then(() =>
-      alert("User has been logged in")
-    );
+    signIn("credentials", { ...data, redirect: false }).then((callback) => {
+      if (callback?.error) {
+        //The callback erroe in here will be the error message we write in the  auth route.jsx
+        toast.error(callback.error);
+      }
+      if (callback?.ok && !callback?.error) {
+        toast.success("Login success");
+      }
+    });
   };
 
   return (
