@@ -27,7 +27,7 @@ export const authOptions = {
     //the defual login provider
     CredentialsProvider({
       //the name of the provider
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "text", placeholder: "xx@gmail.com" },
         password: { label: "Password", type: "password" },

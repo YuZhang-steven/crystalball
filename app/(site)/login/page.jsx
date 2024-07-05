@@ -1,13 +1,23 @@
 "use client";
-import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
+  const session = useSession();
+  const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    //if the user is already logged in, redirect to the home page
+    if (session?.status === "authenticated") {
+      router.push("/dashboard");
+    }
+  }, []);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -100,6 +110,23 @@ export default function Login() {
               </button>
             </div>
           </form>
+          <h1>Click below to sign into GitHub</h1>
+          <button
+            className="bg-black text-white w-full"
+            onClick={() => {
+              signIn("github");
+            }}>
+            Sign In
+          </button>
+
+          <h1>Click below to sign into Goole</h1>
+          <button
+            className="bg-black text-white w-full"
+            onClick={() => {
+              signIn("google");
+            }}>
+            Sign In
+          </button>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
