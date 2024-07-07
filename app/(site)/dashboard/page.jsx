@@ -1,5 +1,6 @@
 "use client";
 
+import { Experience } from "@/app/component/Experience";
 import { Canvas } from "@react-three/fiber";
 import { useSession, signOut } from "next-auth/react";
 
@@ -13,10 +14,13 @@ const dashboard = () => {
         <button onClick={() => signOut()}>Sign Out</button>
       </div>
 
-      <Canvas>
+      <Canvas
+        shadows
+        camera={{ position: [8, 8, 8], fov: 30 }}>
         <color
           attach="background"
           args={["#73d9e1"]}></color>
+        <Experience />
       </Canvas>
     </div>
   );
