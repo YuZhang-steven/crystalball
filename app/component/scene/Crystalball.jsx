@@ -1,10 +1,12 @@
 "use client";
 import React, { useRef } from "react";
-import { useGLTF } from "@react-three/drei";
-// import "@/public/crystallball.glb";
+import {
+	MeshRefractionMaterial,
+	MeshTransmissionMaterial,
+	useGLTF,
+} from "@react-three/drei";
 
 export function Crystallball(props) {
-	// const path = `@/public/crystallball.glb`;
 	const { nodes, materials } = useGLTF("/crystallball.glb");
 	return (
 		<group {...props} dispose={null}>
@@ -21,8 +23,15 @@ export function Crystallball(props) {
 				castShadow
 				receiveShadow
 				geometry={nodes.ball.geometry}
-				material={nodes.ball.material}
-			/>
+				// material={nodes.ball.material}
+			>
+				<MeshTransmissionMaterial
+					thickness={0.2}
+					backsideThickness={0.2}
+					color={"#fdccf1"}
+					// background={"#839681"}
+				/>
+			</mesh>
 		</group>
 	);
 }
