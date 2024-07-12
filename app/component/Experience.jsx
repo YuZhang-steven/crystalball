@@ -16,7 +16,7 @@ export function Experience() {
 			<Crystallball />
 
 			<OrbitControls ref={controls} />
-			<Environment files="/metro_noord_1k.hdr" blur={1} />
+			<Environment files="/metro_noord_1k.hdr" blur={10} />
 		</>
 	);
 }

@@ -28,7 +28,7 @@ export function Crystallball(props) {
 				<MeshTransmissionMaterial
 					thickness={0.2}
 					backsideThickness={0.2}
-					color={"#fdccf1"}
+					color={"#009ACE"}
 					// background={"#839681"}
 				/>
 			</mesh>
