@@ -1,13 +1,10 @@
 "use client";
 import React, { useRef } from "react";
-import {
-	MeshRefractionMaterial,
-	MeshTransmissionMaterial,
-	useGLTF,
-} from "@react-three/drei";
+import { MeshTransmissionMaterial, useGLTF } from "@react-three/drei";
 
 export function Crystallball(props) {
 	const { nodes, materials } = useGLTF("/crystallball.glb");
+
 	return (
 		<group {...props} dispose={null}>
 			<mesh

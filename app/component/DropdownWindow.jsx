@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import OutputBox from "./OutputBox";
+import { create } from "zustand";
+
+const dropdownOpen = create((set) => ({
+	isOpen: false,
+	setIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
+}));
 
 export default function DropdownWindow() {
-	const [isOpen, setIsOpen] = useState(false);
-
-	function toggleDropdown() {
-		setIsOpen((prevState) => !prevState);
-	}
+	const { setIsOpen } = dropdownOpen();
+	const { isOpen } = dropdownOpen();
 
 	return (
 		<div className="flex-col justify-center">
-			{isOpen && <OutputBox />}
+			{isOpen && <OutputBox toggle={setIsOpen} />}
 			<div className="flex justify-center">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +22,7 @@ export default function DropdownWindow() {
 					strokeWidth={1.5}
 					stroke="currentColor"
 					className="size-6 "
-					onClick={toggleDropdown}>
+					onClick={setIsOpen}>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"

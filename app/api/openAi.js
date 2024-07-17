@@ -1,7 +1,10 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI();
-async function getOpenAI() {
+const openai = new OpenAI({
+	apiKey: process.env.OPENAI_API_KEY,
+});
+
+export default async function getOpenAI() {
 	const response = await openai.chat.completions.create({
 		messages: [
 			{
