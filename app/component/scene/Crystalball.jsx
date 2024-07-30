@@ -1,9 +1,25 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import { MeshTransmissionMaterial, useGLTF } from "@react-three/drei";
+import { dropdownText } from "../OutputBox";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export function Crystallball(props) {
 	const { nodes, materials } = useGLTF("/crystallball.glb");
+	const { setText } = dropdownText();
+
+	async function handleClick() {
+		event.preventDefault();
+
+		console.log("click");
+		const date = Date.now();
+		console.log(date);
+		axios
+			.post("/api/openAi", { text: date })
+			.then((res) => setText(res))
+			.catch(() => toast.error("An error occurred"));
+	}
 
 	return (
 		<group {...props} dispose={null}>
@@ -20,6 +36,7 @@ export function Crystallball(props) {
 				castShadow
 				receiveShadow
 				geometry={nodes.ball.geometry}
+				onClick={handleClick}
 				// material={nodes.ball.material}
 			>
 				<MeshTransmissionMaterial

@@ -1,16 +1,16 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-	apiKey: process.env.OPENAI_API_KEY,
-});
-
 export default async function getOpenAI() {
+	const openai = new OpenAI({
+		apiKey: process.env.OPENAI_API_KEY,
+	});
+
 	const response = await openai.chat.completions.create({
 		messages: [
 			{
 				role: "system",
 				content: `You are a astrologist. You will give 3-4 sentences to predict the future. 
-          Then, generate a color index from the setences within the tag<c><c/>.`,
+          Then, generate a color index from the setences.`,
 			},
 			{
 				role: "user",
@@ -22,5 +22,8 @@ export default async function getOpenAI() {
 		],
 		model: "gpt-4o",
 	});
-	return response.data.choices[0].text;
+	// const result = response.data.choices[0].text;
+	const result = response.choices[0];
+	console.log(result);
+	return result.message.content;
 }

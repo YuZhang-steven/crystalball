@@ -1,5 +1,5 @@
-import React from "react";
-import OutputBox from "./OutputBox";
+import React, { useEffect } from "react";
+import OutputBox, { dropdownText } from "./OutputBox";
 import { create } from "zustand";
 
 export const dropdownOpen = create((set) => ({
@@ -9,7 +9,14 @@ export const dropdownOpen = create((set) => ({
 }));
 
 export default function DropdownWindow() {
-	const { dropdownShow, changeDropdown } = dropdownOpen();
+	const { dropdownShow, changeDropdown, openDropdown } = dropdownOpen();
+	const { text } = dropdownText();
+
+	useEffect(() => {
+		if (text) {
+			openDropdown();
+		}
+	}, [text]);
 
 	return (
 		<div className="flex-col justify-center">
