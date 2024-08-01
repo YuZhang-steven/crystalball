@@ -17,7 +17,8 @@ export function Crystallball(props) {
 		console.log(date);
 		axios
 			.post("/api/openAi", { text: date })
-			.then((res) => setText(res))
+			// .then((res) => console.log(res))
+			.then((res) => setText(res.data))
 			.catch(() => toast.error("An error occurred"));
 	}
 

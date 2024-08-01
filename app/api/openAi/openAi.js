@@ -23,7 +23,9 @@ export default async function getOpenAI() {
 		model: "gpt-4o",
 	});
 	// const result = response.data.choices[0].text;
-	const result = response.choices[0];
-	console.log(result);
-	return result.message.content;
+
+	const resultText = response.choices[0].message.content;
+
+	console.log(resultText);
+	return resultText;
 }
