@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -18,17 +18,14 @@
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "vercel": "^35.2.3"
   },
   "devDependencies": {
     "postcss": "^8",
     "prisma": "^5.16.1",
     "tailwindcss": "^3.4.1"
   },
-
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
-  }
+  "postinstall":"prisma generate"
+  
 }
