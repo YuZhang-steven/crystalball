@@ -4,22 +4,23 @@ import { MeshTransmissionMaterial, useGLTF } from "@react-three/drei";
 import { dropdownText } from "../OutputBox";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Inputpopup } from "../InputWind";
 
 export function Crystallball(props) {
 	const { nodes, materials } = useGLTF("/crystallball.glb");
 	const { setText } = dropdownText();
+	const { openInput, closeInput } = Inputpopup();
 
 	async function handleClick() {
 		event.preventDefault();
 
-		console.log("click");
-		const date = Date.now();
-		console.log(date);
-		axios
-			.post("/api/openAi", { text: date })
-			// .then((res) => console.log(res))
-			.then((res) => setText(res.data))
-			.catch(() => toast.error("An error occurred"));
+		console.log("click", date);
+		openInput();
+		// axios
+		// 	.post("/api/openAi", { text: date })
+		// 	// .then((res) => console.log(res))
+		// 	.then((res) => setText(res.data))
+		// 	.catch(() => toast.error("An error occurred"));
 	}
 
 	return (
